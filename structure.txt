@@ -1,0 +1,23 @@
+my_rag_project/
+├── .env                  
+├── requirements.txt      
+└── app/                  
+    ├── __init__.py
+    ├── main.py           # FastAPI application
+    ├── core/
+    │   └── config.py     # Pydantic BaseSettings for env vars (API keys)
+    ├── clients/          # <-- NEW: Your idea for isolated instances
+    │   ├── voyage_client.py
+    │   ├── pinecone_client.py
+    │   ├── groq_client.py
+    │   └── llamaparse_client.py
+    ├── services/         # <-- NEW: Your highly separated logic
+    │   ├── parsing.py
+    │   ├── chunking.py
+    │   ├── embedding.py
+    │   ├── storing.py
+    │   ├── retrieval.py
+    │   ├── reranking.py
+    │   └── answering.py
+    └── api/
+        └── routes.py     # FastAPI endpoints
