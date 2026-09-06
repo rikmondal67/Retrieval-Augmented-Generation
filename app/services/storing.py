@@ -24,7 +24,7 @@ def setup_sparse_pinecone_index():
         )
     return pc.Index(SPARSE_INDEX_NAME)
 
-def ingest(chunks, person_name, pinecone_index, sparse_index, batch_size=20):
+def ingest(chunks, username, pinecone_index, sparse_index, batch_size=20):
     for i in range(0, len(chunks), batch_size):
         batch = chunks[i:i + batch_size]
         texts = [c["embedding_text"] for c in batch]
@@ -38,15 +38,15 @@ def ingest(chunks, person_name, pinecone_index, sparse_index, batch_size=20):
         dense_records = []
         sparse_records = []
         for c, dense_vec, sparse_vec in zip(batch, dense_vectors, sparse_vectors):
-            chunk_id = make_chunk_id(person_name, c)
-            metadata = {"text": c["raw_text"], "section": c["section"], "title": c["title"], "file_name": person_name}
+            chunk_id = make_chunk_id(username, c)
+            metadata = {"text": c["raw_text"], "section": c["section"], "title": c["title"], "file_name": username}
 
             dense_records.append({"id": chunk_id, "values": dense_vec, "metadata": metadata})
             sparse_records.append({"id": chunk_id, "sparse_values": sparse_vec, "metadata": metadata})
 
-        # Notice the addition of namespace=person_name here for user isolation
-        pinecone_index.upsert(vectors=dense_records, namespace=person_name)
-        sparse_index.upsert(vectors=sparse_records, namespace=person_name)
-        print(f"Stored chunks {i + 1}-{min(i + batch_size, len(chunks))} of {len(chunks)} for {person_name}")
+        # Notice the addition of namespace=username here for user isolation
+        pinecone_index.upsert(vectors=dense_records, namespace=username)
+        sparse_index.upsert(vectors=sparse_records, namespace=username)
+        print(f"Stored chunks {i + 1}-{min(i + batch_size, len(chunks))} of {len(chunks)} for {username}")
         
     return chunks

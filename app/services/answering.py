@@ -25,9 +25,9 @@ Respond strictly in valid JSON format matching this schema:
                 "content": prompt,
             }
         ],
-        model="openai/gpt-oss-120b",  # Changed to a valid Groq model name for JSON mode.
+        model="openai/gpt-oss-120b",  
         response_format={"type": "json_object"},
-        temperature=0.0
+        temperature=1.1
     )
 
     raw = chat_completion.choices[0].message.content.strip()
@@ -38,15 +38,15 @@ Respond strictly in valid JSON format matching this schema:
     return json.loads(raw.strip())
 
 
-def ask(user_question, sparse_index, pinecone_index, person_name: str):
-    # Pass person_name so hybrid_retrieve uses the correct Pinecone namespace
-    merged = hybrid_retrieve(user_question, sparse_index, pinecone_index, person_name, top_k=20)
+def ask(user_question, sparse_index, pinecone_index, username: str):
+    # Pass username so hybrid_retrieve uses the correct Pinecone namespace
+    merged = hybrid_retrieve(user_question, sparse_index, pinecone_index, username, top_k=20)
     top_chunks = rerank(user_question, merged, keep_top=6)
     result = answer_with_verification(user_question, top_chunks)
 
     if not result["complete"]:
         print(f"\n[Debug] Incomplete answer detected ({result['reason']}), retrying wider...")
-        merged = hybrid_retrieve(user_question, sparse_index, pinecone_index, person_name, top_k=40)
+        merged = hybrid_retrieve(user_question, sparse_index, pinecone_index, username, top_k=40)
         top_chunks = rerank(user_question, merged, keep_top=10)
         result = answer_with_verification(user_question, top_chunks)
 

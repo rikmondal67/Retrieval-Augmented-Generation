@@ -1,23 +1,93 @@
-my_rag_project/
-├── .env                  
-├── requirements.txt      
-└── app/                  
-    ├── __init__.py
-    ├── main.py           # FastAPI application
-    ├── core/
-    │   └── config.py     # Pydantic BaseSettings for env vars (API keys)
-    ├── clients/          # <-- NEW: Your idea for isolated instances
-    │   ├── voyage_client.py
-    │   ├── pinecone_client.py
-    │   ├── groq_client.py
-    │   └── llamaparse_client.py
-    ├── services/         # <-- NEW: Your highly separated logic
-    │   ├── parsing.py
-    │   ├── chunking.py
-    │   ├── embedding.py
-    │   ├── storing.py
-    │   ├── retrieval.py
-    │   ├── reranking.py
-    │   └── answering.py
-    └── api/
-        └── routes.py     # FastAPI endpoints
+.
+├── app
+│   ├── api
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   └── routes.cpython-312.pyc
+│   │   └── routes.py
+│   ├── clients
+│   │   ├── groq_client.py
+│   │   ├── __init__.py
+│   │   ├── llamaparse_client.py
+│   │   ├── pinecone_client.py
+│   │   ├── __pycache__
+│   │   │   ├── groq_client.cpython-312.pyc
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   ├── llamaparse_client.cpython-312.pyc
+│   │   │   ├── pinecone_client.cpython-312.pyc
+│   │   │   └── voyage_client.cpython-312.pyc
+│   │   └── voyage_client.py
+│   ├── core
+│   │   ├── config.py
+│   │   ├── __init__.py
+│   │   └── __pycache__
+│   │       ├── config.cpython-312.pyc
+│   │       └── __init__.cpython-312.pyc
+│   ├── __init__.py
+│   ├── main.py
+│   ├── __pycache__
+│   │   ├── __init__.cpython-312.pyc
+│   │   └── main.cpython-312.pyc
+│   └── services
+│       ├── answering.py
+│       ├── chunking.py
+│       ├── embedding.py
+│       ├── __init__.py
+│       ├── parsing.py
+│       ├── __pycache__
+│       │   ├── answering.cpython-312.pyc
+│       │   ├── chunking.cpython-312.pyc
+│       │   ├── embedding.cpython-312.pyc
+│       │   ├── __init__.cpython-312.pyc
+│       │   ├── parsing.cpython-312.pyc
+│       │   ├── reranking.cpython-312.pyc
+│       │   ├── retrieval.cpython-312.pyc
+│       │   └── storing.cpython-312.pyc
+│       ├── reranking.py
+│       ├── retrieval.py
+│       └── storing.py
+├── backend
+│   ├── api
+│   │   └── routes
+│   │       ├── auth.py
+│   │       └── __pycache__
+│   │           └── auth.cpython-312.pyc
+│   ├── core
+│   │   ├── config.py
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── config.cpython-312.pyc
+│   │   │   └── __init__.cpython-312.pyc
+│   │   └── security.py
+│   ├── db
+│   │   ├── __init__.py
+│   │   ├── mongodb.py
+│   │   └── __pycache__
+│   │       ├── __init__.cpython-312.pyc
+│   │       └── mongodb.cpython-312.pyc
+│   ├── __init__.py
+│   ├── main.py
+│   ├── models
+│   ├── __pycache__
+│   │   ├── __init__.cpython-312.pyc
+│   │   └── main.cpython-312.pyc
+│   ├── schemas
+│   │   ├── __pycache__
+│   │   │   └── user_schema.cpython-312.pyc
+│   │   └── user_schema.py
+│   └── services
+│       ├── auth_services.py
+│       ├── __init__.py
+│       └── __pycache__
+│           └── __init__.cpython-312.pyc
+├── pyproject.toml
+├── README.md
+├── requirements.txt
+├── src
+│   └── production_rag
+│       └── __init__.py
+├── structure.txt
+└── uv.lock
+
+27 directories, 64 files
